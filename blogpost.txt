@@ -1,8 +1,0 @@
-# write the filename for the image into the next line:
-image_name.jpg
-
-# write the alternative text for the image into the next line:
-image_alt_text
-
-# write the text for the blog post into the next line:
-image_description
