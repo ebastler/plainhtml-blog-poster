@@ -20,23 +20,23 @@ The scripts expects a remote directory with the following contents:
     - folder: "preview" (preview images will be placed here)
 - file: "blog_$year.html" (html file where the blog post is supposed to be)
 
-The folders are not automatically created - I was too lazy to automate a task that takes 30 seconds once a year. The "blog_$year.html" file can have any contents, as long as a specific marker (see included example file) is included. All submissions will be inserted after it.
+The folders are not automatically created - I was too lazy to automate a task that takes 30 seconds once a year. The "blog_$year.html" file can have any contents, as long as a specific marker (see included example at the end of the readme) is included. All submissions will be inserted after it.
 
-### Variables that have to be conatined in "configPath" file
-- localDir - as long as the script lies in the same directory as "*.jpg", "blogpost.txt" and the "full"/"preview" folders, no changes are required.
+### Variables that have to be conatined in "$configPath" file
+- localDir - as long as the script lies in the same directory as "*.jpg", "blogpost.txt" and the "full"/"preview" folders, no changes are required. Leaving it empty will default to `pwd`
 - sshCon - obviously, the place-holder username and domain have to be replaced by some that work on the webserver.
 - remoteDir - path to the folder where the "blog_$year.html" is supposed to be - presumably somewhere in the webserver directory.
 - textPath - as long as "blogpost.txt" lies in localdir, no changes are required.
 - previewSize / fullsize - sizes for the pictures in px. Default values work fine for my application.
 
-Example for "configPath" file:
+Example for "$configPath" file:
 ```bash
-localDir pwd
+localDir
 sshCon user@domain
 remoteDir /path/to/folder
 textPath blogpost.txt
-previewSize "300"
-fullSize "1280x1280"
+previewSize 300
+fullSize 1280x1280
 ```
 
 Example for "blogpost.txt" file:
@@ -49,4 +49,28 @@ image_alt_text
 
 # write the text for the blog post into the next line:
 image_description
+```
+
+Example for "blog_$year.html" (for example, "blog_2020.html"):
+```html
+<!DOCTYPE html>
+<html lang="en">
+
+  [...]
+
+<div class="content">
+<span>
+Something static to be on top of your blog entries
+</span>
+
+<!-- marker for auto-generated content insertion -->
+
+<div class="blog_post">
+<p><a href="2020/image_name.jpg"><img class="preview" alt="image_alt_text" src="2020/preview/image_name.jpg">
+22.01.2020</a><br>
+image_description</div>
+
+</div>
+
+</html>
 ```
