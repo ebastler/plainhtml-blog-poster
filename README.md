@@ -24,6 +24,7 @@ The folders are not automatically created - I was too lazy to automate a task th
 
 ### Variables that have to be conatined in "$configPath" file
 - localDir - as long as the script lies in the same directory as "*.jpg", "blogpost.txt" and the "full"/"preview" folders, no changes are required. Leaving it empty will default to `pwd`
+- sshKey - (full) path to the ssh private key file to be used by the ssh-agent
 - sshCon - obviously, the place-holder username and domain have to be replaced by some that work on the webserver.
 - remoteDir - path to the folder where the "blog_$year.html" is supposed to be - presumably somewhere in the webserver directory.
 - textPath - as long as "blogpost.txt" lies in localdir, no changes are required.
@@ -32,6 +33,7 @@ The folders are not automatically created - I was too lazy to automate a task th
 Example for "$configPath" file:
 ```bash
 localDir
+sshKey /home/whatever/.ssh/id_ed25519
 sshCon user@domain
 remoteDir /path/to/folder
 textPath blogpost.txt

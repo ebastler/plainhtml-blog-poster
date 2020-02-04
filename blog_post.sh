@@ -8,6 +8,7 @@
 configPath=variables
 
 localDir=(`cat $configPath | awk -F"[ ]+" '/localDir /{printf $2 " "}'`)
+sshKey=(`cat $configPath | awk -F"[ ]+" '/sshKey /{printf $2 " "}'`)
 sshCon=(`cat $configPath | awk -F"[ ]+" '/sshCon /{printf $2 " "}'`)
 remoteDir=(`cat $configPath | awk -F"[ ]+" '/remoteDir /{printf $2 " "}'`)
 textPath=(`cat $configPath | awk -F"[ ]+" '/textPath /{printf $2 " "}'`)
@@ -20,6 +21,17 @@ then
       localDir=`pwd`
 fi
 
+# If none is running, start an ssh-agent and load the key specified in $sshKey
+# If no ssh-agent was present at script launch, create a variable to kill it before exiting
+if [ -z "$SSH_AGENT_PID" ]
+then
+      eval "$(ssh-agent)"
+      killAgent="1"
+else
+      unset killAgent
+fi
+
+ssh-add $sshKey
 
 # get the current date to be used in the post
 postDate=`date +%d.%m.%Y`
@@ -56,3 +68,12 @@ rm $localDir/*.jpg
 rm $localDir/full/*
 rm $localDir/preview/*
 rm $localDir/blog_"$postYear"_temp.html
+
+# if the agent was started by this script, kill it. Otherwise, leave it running.
+if [ ! -z "$killAgent" ]
+then
+      ssh-agent -k
+      unset killAgent
+fi
+
+exit 0
