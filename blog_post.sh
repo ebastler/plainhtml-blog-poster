@@ -61,7 +61,7 @@ mogrify -path $localDir/full -resize $fullSize -quality 100 $localDir/*.jpg && e
 mogrify -path $localDir/preview -resize $previewSize -quality 100 $localDir/*.jpg && echo "preview image has been created"
 
 # copy the images from the local directories to the server over ssh
-scp $localDir/full/* $sshCon:$remoteDir/$postYear && echo "fullSize image has been copied" && scp $localDir/preview/* $sshCon:$remoteDir/$postYear/preview && echo "preview image has been copied"
+scp $localDir/full/* $sshCon:$remoteDir/$postYear/ && echo "fullSize image has been copied" && scp $localDir/preview/* $sshCon:$remoteDir/$postYear/preview/ && echo "preview image has been copied"
 
 # clean up local files
 rm $localDir/*.jpg
